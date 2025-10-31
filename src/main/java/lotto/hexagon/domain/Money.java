@@ -8,4 +8,18 @@ public record Money(long value) {
             throw new IllegalArgumentException(ERROR_NEGATIVE);
         }
     }
+
+    public Divided divideBy(Money money) {
+        long dividend = this.value;
+        long divisor = money.value();
+
+        long quotient = dividend / divisor;
+        long remainder = dividend % divisor;
+
+        return new Divided(quotient, new Money(remainder));
+    }
+
+    public boolean isEmpty() {
+        return this.value == 0;
+    }
 }
