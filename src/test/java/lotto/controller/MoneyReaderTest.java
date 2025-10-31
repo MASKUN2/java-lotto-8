@@ -3,6 +3,7 @@ package lotto.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
+import lotto.helper.MockLineReader;
 import lotto.hexagon.domain.Money;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,16 +34,4 @@ class MoneyReaderTest {
                 .withMessage(MoneyReader.ERROR_NUMBER);
     }
 
-    static class MockLineReader implements LineReader {
-        private Line mockLine;
-
-        @Override
-        public Line read() {
-            return mockLine;
-        }
-
-        public void setLine(Line line) {
-            this.mockLine = line;
-        }
-    }
 }

@@ -3,6 +3,7 @@ package lotto.hexagon.domain;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
@@ -49,5 +50,18 @@ public class Numbers implements Iterable<Number> {
 
     public Stream<Number> stream() {
         return set.stream();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Numbers numbers)) {
+            return false;
+        }
+        return Objects.equals(set, numbers.set);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(set);
     }
 }
