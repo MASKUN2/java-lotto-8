@@ -21,6 +21,7 @@ class TallyWriterTest {
 
         String output = lineWriter.output();
         String expected = """
+                
                 당첨 통계
                 ---
                 3개 일치 (5,000원) - 1개

@@ -23,9 +23,14 @@ public class TallyWriter {
     }
 
     public void write(Money paid, Award award) {
+        writeLineBreak();
         writeHeadLineSection();
         writePrizeTallySection(award);
         writeReturnSection(paid, award);
+    }
+
+    private void writeLineBreak() {
+        writer.writeLine("");
     }
 
     private void writeHeadLineSection() {
