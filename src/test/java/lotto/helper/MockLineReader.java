@@ -1,17 +1,16 @@
 package lotto.helper;
 
-import lotto.controller.Line;
-import lotto.controller.LineReader;
+import lotto.adaptor.implement.ApplicationInputLineReader;
 
-public class MockLineReader implements LineReader {
-    private Line mockLine;
+public class MockLineReader implements ApplicationInputLineReader {
+    private String mockLine;
 
     @Override
-    public Line read() {
+    public String readLine() {
         return mockLine;
     }
 
-    public void setLine(Line line) {
+    public void setLine(String line) {
         this.mockLine = line;
     }
 }
