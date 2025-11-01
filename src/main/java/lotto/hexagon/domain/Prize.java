@@ -30,12 +30,6 @@ public enum Prize {
         assertMatchUnique();
     }
 
-    public static Optional<Prize> findBy(Match match) {
-        return Arrays.stream(Prize.values())
-                .filter(prize -> prize.condition.isMatch(match))
-                .min(Comparator.comparing(prize -> prize.rank));
-    }
-
     private static void assertRankUnique() {
         Set<Integer> ranks = new HashSet<>();
         boolean isDuplicated = Arrays.stream(Prize.values())
@@ -54,6 +48,16 @@ public enum Prize {
         if (isDuplicated) {
             throw new IllegalStateException("일치 조건이 중복되었습니다");
         }
+    }
+
+    public static Optional<Prize> findBy(Match match) {
+        return Arrays.stream(Prize.values())
+                .filter(prize -> prize.isMatch(match))
+                .min(Comparator.comparing(prize -> prize.rank));
+    }
+
+    private boolean isMatch(Match match) {
+        return condition.isMatch(match);
     }
 
 }

@@ -13,7 +13,7 @@ import lotto.hexagon.domain.Numbers;
 import lotto.hexagon.domain.NumbersGenerator;
 
 public class VendorService {
-    static final String ERROR_REMAINDER = String.format("금액은 가격으로 나누어 떨어져야합니다. 가격: %s", PRICE);
+    static final String ERROR_REMAINDER = String.format("금액은 가격으로 나누어 떨어져야합니다. 가격: %,d", PRICE.value());
 
     private final NumbersGenerator numbersGenerator;
 
