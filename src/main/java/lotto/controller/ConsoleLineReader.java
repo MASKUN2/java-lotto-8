@@ -1,7 +1,6 @@
 package lotto.controller;
 
 import camp.nextstep.edu.missionutils.Console;
-import java.util.NoSuchElementException;
 
 public class ConsoleLineReader implements LineReader {
 
@@ -11,10 +10,6 @@ public class ConsoleLineReader implements LineReader {
     }
 
     private String readLine() {
-        try {
             return Console.readLine();
-        } catch (NoSuchElementException e) {
-            return "";
-        }
     }
 }

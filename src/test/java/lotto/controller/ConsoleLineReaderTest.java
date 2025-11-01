@@ -1,8 +1,10 @@
 package lotto.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import camp.nextstep.edu.missionutils.Console;
+import java.util.NoSuchElementException;
 import lotto.helper.SystemIoTestHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,11 +26,17 @@ class ConsoleLineReaderTest {
 
         Line first = reader.read();
         Line second = reader.read();
-        Line expectedFallBack = reader.read();
 
         assertThat(first.value()).isEqualTo("You know nothing");
         assertThat(second.value()).isEqualTo("John Snow");
-        assertThat(expectedFallBack.value()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("입력이 없는 경우 예외")
+    void readLineNoInput() {
+        assertThatThrownBy(() -> reader.read())
+                .isInstanceOf(NoSuchElementException.class);
+
     }
 
 }
