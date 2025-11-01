@@ -23,6 +23,7 @@ public class LottosWriter {
         for (Lotto lotto : lottos) {
             writeNumbers(lotto);
         }
+        writerLineBreak();
     }
 
     private void writeQuantity(Lottos lottos) {
@@ -44,5 +45,9 @@ public class LottosWriter {
                 .collect(Collectors.joining(NUMBER_DELIMITER));
 
         return String.format(NUMBERS_FORMAT, values);
+    }
+
+    private void writerLineBreak() {
+        writer.writeLine("");
     }
 }

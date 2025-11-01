@@ -49,11 +49,15 @@ public class LottoController {
     }
 
     private Drawn drawNumbers() {
+        return exceptionHandler.handle(this::draw);
+    }
+
+    private Drawn draw() {
         writer.write(MESSAGE_INPUT_LUCKY_NUMBERS);
-        Numbers lucky = exceptionHandler.handle(reader::readNumbers);
+        Numbers lucky = reader.readNumbers();
 
         writer.write(MESSAGE_INPUT_BONUS_NUMBER);
-        Number bonus = exceptionHandler.handle(reader::readNumber);
+        Number bonus = reader.readNumber();
 
         return new Drawn(lucky, bonus);
     }
