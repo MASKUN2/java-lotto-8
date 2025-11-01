@@ -2,17 +2,19 @@ package lotto.adaptor.implement;
 
 import lotto.adaptor.OutputWriter;
 import lotto.hexagon.domain.Award;
-import lotto.hexagon.domain.Bill;
+import lotto.hexagon.domain.Lottos;
 import lotto.hexagon.domain.Money;
 
 public class OutputWriterImpl implements OutputWriter {
     private final TallyWriter tallyWriter;
-    private final BillWriter billWriter;
+    private final LottosWriter lottosWriter;
     private final ApplicationOutputLineWriter lineWriter;
 
-    public OutputWriterImpl(TallyWriter tallyWriter, BillWriter billWriter, ApplicationOutputLineWriter lineWriter) {
+    public OutputWriterImpl(TallyWriter tallyWriter,
+                            LottosWriter lottosWriter,
+                            ApplicationOutputLineWriter lineWriter) {
         this.tallyWriter = tallyWriter;
-        this.billWriter = billWriter;
+        this.lottosWriter = lottosWriter;
         this.lineWriter = lineWriter;
     }
 
@@ -22,8 +24,8 @@ public class OutputWriterImpl implements OutputWriter {
     }
 
     @Override
-    public void write(Bill bill) {
-        billWriter.write(bill);
+    public void write(Lottos lottos) {
+        lottosWriter.write(lottos);
     }
 
     @Override

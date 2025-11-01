@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 class RewardServiceTest {
     private Drawn drawn;
     private Lottos lottos;
-    private RewardService service = new RewardService();
+    private final RewardService service = new RewardService();
 
     @BeforeEach
     void setUp() {

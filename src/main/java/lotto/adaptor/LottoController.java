@@ -16,11 +16,11 @@ public class LottoController {
 
     private final InputReader reader;
     private final OutputWriter writer;
-    private final ExceptionHandler exceptionHandler;
+    private final RetryExceptionHandler<IllegalArgumentException> exceptionHandler;
     private final LottoOffice lottoOffice;
 
     public LottoController(
-            ExceptionHandler exceptionHandler,
+            RetryExceptionHandler<IllegalArgumentException> exceptionHandler,
             InputReader reader,
             OutputWriter writer, LottoOffice lottoOffice) {
         this.exceptionHandler = exceptionHandler;
@@ -39,7 +39,7 @@ public class LottoController {
     private Bill doBuying() {
         writer.write(MESSAGE_INPUT_MONEY);
         Bill bill = exceptionHandler.handle(this::purchase);
-        writer.write(bill);
+        writer.write(bill.lottos());
         return bill;
     }
 

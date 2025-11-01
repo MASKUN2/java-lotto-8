@@ -1,23 +1,40 @@
 package lotto.adaptor.implement;
 
 import java.util.List;
+import lotto.adaptor.InputReader;
+import lotto.hexagon.domain.Money;
 import lotto.hexagon.domain.Number;
 import lotto.hexagon.domain.Numbers;
 
-public class NumbersReader {
+public class UserInputReader implements InputReader {
     static final String ERROR_NUMBER = "숫자만 입력 할 수 있습니다";
     static final String DELIMITER = ",";
 
     private final ApplicationInputLineReader lineReader;
 
-    public NumbersReader(ApplicationInputLineReader reader) {
+    public UserInputReader(ApplicationInputLineReader reader) {
         this.lineReader = reader;
     }
 
-    public Numbers read() throws IllegalArgumentException {
+    @Override
+    public Money readMoney() throws IllegalArgumentException {
+        String line = lineReader.readLine();
+        long value = parse(line);
+        return new Money(value);
+    }
+
+    @Override
+    public Numbers readNumbers() throws IllegalArgumentException {
         List<String> delimited = readDelimited();
         List<Number> numbers = parse(delimited);
         return Numbers.of(numbers);
+    }
+
+    @Override
+    public Number readNumber() throws IllegalArgumentException {
+        String line = lineReader.readLine();
+        Integer value = parse(line);
+        return new Number(value);
     }
 
     private List<String> readDelimited() {

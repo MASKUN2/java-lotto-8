@@ -1,5 +1,9 @@
 package lotto.adaptor.implement;
 
+import static lotto.hexagon.domain.Number.MAX_VALUE;
+import static lotto.hexagon.domain.Number.MIN_VALUE;
+import static lotto.hexagon.domain.Numbers.REQUIRED_SIZE;
+
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.List;
 import lotto.hexagon.domain.Number;
@@ -15,11 +19,7 @@ public class RandomNumbersGenerator implements NumbersGenerator {
     }
 
     private static List<Number> getRandomUniques() {
-        int min = Number.MIN_VALUE;
-        int max = Number.MAX_VALUE;
-        int size = Numbers.REQUIRED_SIZE;
-
-        List<Integer> integers = Randoms.pickUniqueNumbersInRange(min, max, size);
+        List<Integer> integers = Randoms.pickUniqueNumbersInRange(MIN_VALUE, MAX_VALUE, REQUIRED_SIZE);
 
         return integers.stream()
                 .map(Number::new)
