@@ -5,7 +5,11 @@ import lotto.hexagon.domain.Lottos;
 import lotto.hexagon.domain.Money;
 
 public interface OutputWriter {
-    void write(String message);
+    void writeRequestInputMoney();
+
+    void writeRequestInputLuckyNumbers();
+
+    void writeRequestInputBonusNumber();
 
     void writeDetail(Lottos lottos);
 

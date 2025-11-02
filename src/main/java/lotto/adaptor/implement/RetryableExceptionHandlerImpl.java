@@ -1,6 +1,5 @@
 package lotto.adaptor.implement;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 import lotto.adaptor.ExceededRetryException;
 import lotto.adaptor.RetryableExceptionHandler;
@@ -17,9 +16,9 @@ public class RetryableExceptionHandlerImpl implements RetryableExceptionHandler<
 
     @Override
     public <T> T handle(Supplier<T> supplier) throws ExceededRetryException {
-        AtomicInteger tryCount = new AtomicInteger(0);
+        int tryCount = 0;
 
-        while (tryCount.incrementAndGet() <= MAX_TRY_COUNT) {
+        while (++tryCount <= MAX_TRY_COUNT) {
             try {
                 return supplier.get();
             } catch (IllegalArgumentException exception) {

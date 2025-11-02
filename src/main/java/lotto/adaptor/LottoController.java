@@ -9,10 +9,6 @@ import lotto.hexagon.domain.Numbers;
 import lotto.hexagon.inbound.LottoOffice;
 
 public class LottoController {
-    private static final String MESSAGE_INPUT_MONEY = "구입금액을 입력해 주세요.";
-    private static final String MESSAGE_INPUT_LUCKY_NUMBERS = "당첨 번호를 입력해 주세요.";
-    private static final String MESSAGE_INPUT_BONUS_NUMBER = "보너스 번호를 입력해 주세요.";
-
     private final RetryableExceptionHandler<IllegalArgumentException> exceptionHandler;
     private final InputReader reader;
     private final OutputWriter writer;
@@ -41,17 +37,17 @@ public class LottoController {
     }
 
     private Bill purchase() {
-        writer.write(MESSAGE_INPUT_MONEY);
+        writer.writeRequestInputMoney();
         Money inputMoney = reader.readMoney();
 
         return lottoOffice.purchase(inputMoney);
     }
 
     private Drawn draw() {
-        writer.write(MESSAGE_INPUT_LUCKY_NUMBERS);
+        writer.writeRequestInputLuckyNumbers();
         Numbers lucky = reader.readNumbers();
 
-        writer.write(MESSAGE_INPUT_BONUS_NUMBER);
+        writer.writeRequestInputBonusNumber();
         Number bonus = reader.readNumber();
 
         return new Drawn(lucky, bonus);
