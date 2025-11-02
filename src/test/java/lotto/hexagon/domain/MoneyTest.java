@@ -28,6 +28,27 @@ class MoneyTest {
     }
 
     @Test
+    @DisplayName("0에 관련된 나눗셈을 테스트 한다")
+    void dividendZero() {
+        Money money = new Money(0);
+        Money other = new Money(1);
+
+        Divided divided = money.divideBy(other);
+
+        assertThat(divided.quotient()).isEqualTo(0);
+        assertThat(divided.remainder()).isEqualTo(new Money(0));
+    }
+
+    @Test
+    @DisplayName("0에 관련된 나눗셈을 테스트 한다")
+    void divisorZero() {
+        Money money = new Money(1);
+        Money other = new Money(0);
+
+        assertThatIllegalArgumentException().isThrownBy(() -> money.divideBy(other));
+    }
+
+    @Test
     @DisplayName("비어있는지 테스트")
     void isEmpty() {
         Money money = new Money(0);

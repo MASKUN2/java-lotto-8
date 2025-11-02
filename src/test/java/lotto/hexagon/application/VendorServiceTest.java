@@ -31,6 +31,14 @@ class VendorServiceTest {
     }
 
     @Test
+    @DisplayName("구입수량이 0이라 오류")
+    void notEnoughAmount() {
+        Money money = new Money(0);
+        assertThatIllegalArgumentException().isThrownBy(() -> vendorService.purchase(money))
+                .withMessage(VendorService.ERROR_NO_QUANTITY);
+    }
+
+    @Test
     @DisplayName("가격이 나눠떨어져서 그만큼 반환")
     void success() {
         Money money = new Money(Lotto.PRICE.value() * 5);

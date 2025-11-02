@@ -14,6 +14,7 @@ import lotto.hexagon.domain.NumbersGenerator;
 
 public class VendorService {
     static final String ERROR_REMAINDER = String.format("금액은 가격으로 나누어 떨어져야합니다. 가격: %,d", PRICE.value());
+    static final String ERROR_NO_QUANTITY = "구입수량은 1 이상이여야 합니다.";
 
     private final NumbersGenerator numbersGenerator;
 
@@ -25,24 +26,34 @@ public class VendorService {
         Divided divided = money.divideBy(PRICE);
         long quantity = divided.quotient();
 
-        assertEmpty(divided.remainder());
+        assertEmptyRemainder(divided);
 
         Lottos lottos = buyUpTo(quantity);
         return new Bill(money, lottos);
     }
 
-    private void assertEmpty(Money change) {
-        if (!change.isEmpty()) {
+    private void assertEmptyRemainder(Divided divided) {
+        Money remainder = divided.remainder();
+
+        if (!remainder.isEmpty()) {
             throw new IllegalArgumentException(ERROR_REMAINDER);
         }
     }
 
     private Lottos buyUpTo(long quantity) {
+        assertPositiveQuantity(quantity);
+
         List<Lotto> bought = LongStream.range(0, quantity)
                 .mapToObj(n -> this.issue())
                 .toList();
 
         return new Lottos(bought);
+    }
+
+    private void assertPositiveQuantity(long quantity) {
+        if (quantity < 1) {
+            throw new IllegalArgumentException(ERROR_NO_QUANTITY);
+        }
     }
 
     private Lotto issue() {
