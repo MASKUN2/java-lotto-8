@@ -11,9 +11,9 @@ import lotto.hexagon.domain.Number;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class RetryableExceptionHandlerTest {
+class RetryableExceptionHandlerImplTest {
     private final MockLineWriter mockLineWriter = new MockLineWriter();
-    private final RetryableExceptionHandler handler = new RetryableExceptionHandler(mockLineWriter);
+    private final RetryableExceptionHandlerImpl handler = new RetryableExceptionHandlerImpl(mockLineWriter);
 
     @Test
     @DisplayName("정상반환")

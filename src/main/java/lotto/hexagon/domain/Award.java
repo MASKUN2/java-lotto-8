@@ -12,11 +12,11 @@ public class Award implements Iterable<PrizeTally> {
     }
 
     public static Award initiate() {
-        List<PrizeTally> prizeTallyList = Arrays.stream(Prize.values())
+        List<PrizeTally> tallies = Arrays.stream(Prize.values())
                 .map(PrizeTally::newOf)
                 .toList();
 
-        return new Award(prizeTallyList);
+        return new Award(tallies);
     }
 
     public Award add(Prize prize) {

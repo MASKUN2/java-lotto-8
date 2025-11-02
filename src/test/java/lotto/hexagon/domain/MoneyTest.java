@@ -28,7 +28,7 @@ class MoneyTest {
     }
 
     @Test
-    @DisplayName("0에 관련된 나눗셈을 테스트 한다")
+    @DisplayName("0을 나누면 0")
     void dividendZero() {
         Money money = new Money(0);
         Money other = new Money(1);
@@ -40,7 +40,7 @@ class MoneyTest {
     }
 
     @Test
-    @DisplayName("0에 관련된 나눗셈을 테스트 한다")
+    @DisplayName("0으로 나누면 오류")
     void divisorZero() {
         Money money = new Money(1);
         Money other = new Money(0);
@@ -54,5 +54,26 @@ class MoneyTest {
         Money money = new Money(0);
 
         assertThat(money.isEmpty()).isTrue();
+    }
+
+    @Test
+    @DisplayName("더하기")
+    void plus() {
+        Money money = new Money(100);
+        Money other = new Money(10);
+
+        Money updated = money.plus(other);
+
+        assertThat(updated).isEqualTo(new Money(110));
+    }
+
+    @Test
+    @DisplayName("곱하기")
+    void multiple() {
+        Money money = new Money(100);
+        int multiple = 10;
+        Money updated = money.multiple(multiple);
+
+        assertThat(updated).isEqualTo(new Money(1000));
     }
 }

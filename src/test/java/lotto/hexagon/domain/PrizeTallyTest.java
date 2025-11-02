@@ -3,7 +3,9 @@ package lotto.hexagon.domain;
 import static lotto.hexagon.domain.Prize.RANK_1;
 import static lotto.hexagon.domain.Prize.RANK_2;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class PrizeTallyTest {
@@ -14,6 +16,13 @@ class PrizeTallyTest {
 
         assertThat(tally.prize()).isEqualTo(RANK_1);
         assertThat(tally.count()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("불변식 검증")
+    void invariant() {
+        assertThatIllegalArgumentException().isThrownBy(() -> new PrizeTally(RANK_1, -1))
+                .withMessage(PrizeTally.ERROR_NEGATIVE);
     }
 
     @Test

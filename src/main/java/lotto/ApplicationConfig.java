@@ -3,15 +3,15 @@ package lotto;
 import lotto.adaptor.InputReader;
 import lotto.adaptor.LottoController;
 import lotto.adaptor.OutputWriter;
-import lotto.adaptor.RetryExceptionHandler;
+import lotto.adaptor.RetryableExceptionHandler;
 import lotto.adaptor.implement.ApplicationInputLineReader;
 import lotto.adaptor.implement.ApplicationOutputLineWriter;
 import lotto.adaptor.implement.ConsoleInputLineReader;
+import lotto.adaptor.implement.LottoOutputWriter;
 import lotto.adaptor.implement.LottosWriter;
-import lotto.adaptor.implement.OutputWriterImpl;
 import lotto.adaptor.implement.RandomNumbersGenerator;
-import lotto.adaptor.implement.RetryableExceptionHandler;
-import lotto.adaptor.implement.SystemOutputWriter;
+import lotto.adaptor.implement.RetryableExceptionHandlerImpl;
+import lotto.adaptor.implement.SystemOutputLineWriter;
 import lotto.adaptor.implement.TallyWriter;
 import lotto.adaptor.implement.UserInputReader;
 import lotto.hexagon.application.LottoFacadeService;
@@ -30,7 +30,7 @@ public class ApplicationConfig {
         inputLineReader = getInputLineReader();
         outputLineWriter = getOutputLineWriter();
 
-        RetryExceptionHandler<IllegalArgumentException> exceptionHandler = getExceptionHandler();
+        RetryableExceptionHandler<IllegalArgumentException> exceptionHandler = getExceptionHandler();
         InputReader reader = getInputReader();
         OutputWriter writer = getOutputWriter();
         LottoOffice lottoOffice = getLottoOffice();
@@ -43,15 +43,15 @@ public class ApplicationConfig {
     }
 
     private ApplicationOutputLineWriter getOutputLineWriter() {
-        return new SystemOutputWriter();
+        return new SystemOutputLineWriter();
     }
 
     public LottoController getLottoController() {
         return lottoController;
     }
 
-    private RetryExceptionHandler<IllegalArgumentException> getExceptionHandler() {
-        return new RetryableExceptionHandler(outputLineWriter);
+    private RetryableExceptionHandler<IllegalArgumentException> getExceptionHandler() {
+        return new RetryableExceptionHandlerImpl(outputLineWriter);
     }
 
     private InputReader getInputReader() {
@@ -62,7 +62,7 @@ public class ApplicationConfig {
         LottosWriter lottosWriter = new LottosWriter(outputLineWriter);
         TallyWriter tallyWriter = new TallyWriter(outputLineWriter);
 
-        return new OutputWriterImpl(tallyWriter, lottosWriter, outputLineWriter);
+        return new LottoOutputWriter(tallyWriter, lottosWriter, outputLineWriter);
     }
 
     private LottoOffice getLottoOffice() {

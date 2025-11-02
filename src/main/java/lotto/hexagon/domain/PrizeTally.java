@@ -4,6 +4,10 @@ public record PrizeTally(Prize prize, int count) {
     private static final int ZERO = 0;
     static final String ERROR_NEGATIVE = "개수는 음수일 수 없습니다";
 
+    public static PrizeTally newOf(Prize prize) {
+        return new PrizeTally(prize, ZERO);
+    }
+
     public PrizeTally {
         assertPositive(count);
     }
@@ -14,16 +18,8 @@ public record PrizeTally(Prize prize, int count) {
         }
     }
 
-    public static PrizeTally newOf(Prize prize) {
-        return new PrizeTally(prize, ZERO);
-    }
-
     public PrizeTally increase() {
         return new PrizeTally(prize, this.count + 1);
-    }
-
-    public boolean isMatch(Prize prize) {
-        return this.prize.equals(prize);
     }
 
     public PrizeTally increaseIfMatch(Prize prize) {
@@ -31,6 +27,10 @@ public record PrizeTally(Prize prize, int count) {
             return increase();
         }
         return this;
+    }
+
+    public boolean isMatch(Prize prize) {
+        return this.prize.equals(prize);
     }
 
     public Money total() {

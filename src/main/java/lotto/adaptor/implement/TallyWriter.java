@@ -67,7 +67,7 @@ public class TallyWriter {
 
     private void writeReturnSection(Money paid, Award award) {
         Money total = award.total();
-        double percentage = ((double) total.value() / paid.value()) * 100;
+        double percentage = (double) total.value() / paid.value() * 100;
         String formattedReturn = String.format(RETURN_FORMAT, percentage);
 
         writer.writeLine(formattedReturn);

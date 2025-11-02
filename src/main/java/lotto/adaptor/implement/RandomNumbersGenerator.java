@@ -18,7 +18,7 @@ public class RandomNumbersGenerator implements NumbersGenerator {
         return Numbers.of(list);
     }
 
-    private static List<Number> getRandomUniques() {
+    private List<Number> getRandomUniques() {
         List<Integer> integers = Randoms.pickUniqueNumbersInRange(MIN_VALUE, MAX_VALUE, REQUIRED_SIZE);
 
         return integers.stream()

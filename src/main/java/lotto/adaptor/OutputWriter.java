@@ -7,7 +7,7 @@ import lotto.hexagon.domain.Money;
 public interface OutputWriter {
     void write(String message);
 
-    void write(Lottos lottos);
+    void writeDetail(Lottos lottos);
 
-    void write(Money paid, Award award);
+    void writeResult(Money paid, Award award);
 }

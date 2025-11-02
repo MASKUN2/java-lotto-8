@@ -1,6 +1,6 @@
 package lotto.adaptor.implement;
 
-public class SystemOutputWriter implements ApplicationOutputLineWriter {
+public class SystemOutputLineWriter implements ApplicationOutputLineWriter {
 
     @Override
     public void writeLine(String line) {

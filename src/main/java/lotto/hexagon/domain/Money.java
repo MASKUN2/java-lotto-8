@@ -6,14 +6,26 @@ public record Money(long value) {
 
     public static final Money EMPTY = new Money(0);
 
+    public static Money of(long value) {
+        return new Money(value);
+    }
+
     public Money {
         if (value < 0) {
             throw new IllegalArgumentException(ERROR_NEGATIVE);
         }
     }
 
-    public static Money of(long value) {
-        return new Money(value);
+    public boolean isEmpty() {
+        return this.equals(EMPTY);
+    }
+
+    public Money plus(Money money) {
+        return new Money(this.value + money.value);
+    }
+
+    public Money multiple(int multiple) {
+        return new Money(this.value * multiple);
     }
 
     public Divided divideBy(Money money) {
@@ -31,17 +43,5 @@ public record Money(long value) {
         if (Money.EMPTY.equals(money)) {
             throw new IllegalArgumentException(ERROR_DIVISOR_ZERO);
         }
-    }
-
-    public boolean isEmpty() {
-        return this.equals(EMPTY);
-    }
-
-    public Money multiple(int multiple) {
-        return new Money(this.value * multiple);
-    }
-
-    public Money plus(Money money) {
-        return new Money(this.value + money.value);
     }
 }

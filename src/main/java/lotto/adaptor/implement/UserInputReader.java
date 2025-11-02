@@ -7,8 +7,8 @@ import lotto.hexagon.domain.Number;
 import lotto.hexagon.domain.Numbers;
 
 public class UserInputReader implements InputReader {
+    private static final String DELIMITER = ",";
     static final String ERROR_NUMBER = "숫자만 입력 할 수 있습니다";
-    static final String DELIMITER = ",";
 
     private final ApplicationInputLineReader lineReader;
 
@@ -37,6 +37,14 @@ public class UserInputReader implements InputReader {
         return new Number(value);
     }
 
+    private Integer parse(String value) {
+        try {
+            return Integer.parseInt(value.trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(ERROR_NUMBER);
+        }
+    }
+
     private List<String> readDelimited() {
         String line = lineReader.readLine();
         String[] split = line.split(DELIMITER);
@@ -48,13 +56,5 @@ public class UserInputReader implements InputReader {
                 .map(this::parse)
                 .map(Number::new)
                 .toList();
-    }
-
-    private Integer parse(String value) {
-        try {
-            return Integer.parseInt(value.trim());
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ERROR_NUMBER);
-        }
     }
 }

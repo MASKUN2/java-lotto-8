@@ -3,15 +3,15 @@ package lotto.adaptor.implement;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 import lotto.adaptor.ExceededRetryException;
-import lotto.adaptor.RetryExceptionHandler;
+import lotto.adaptor.RetryableExceptionHandler;
 
-public class RetryableExceptionHandler implements RetryExceptionHandler<IllegalArgumentException> {
-    static final int MAX_TRY_COUNT = 10;
-    static final String ERROR_PREFIX = "[ERROR] ";
+public class RetryableExceptionHandlerImpl implements RetryableExceptionHandler<IllegalArgumentException> {
+    private static final int MAX_TRY_COUNT = 10;
+    private static final String ERROR_PREFIX = "[ERROR] ";
 
     private final ApplicationOutputLineWriter lineWriter;
 
-    public RetryableExceptionHandler(ApplicationOutputLineWriter lineWriter) {
+    public RetryableExceptionHandlerImpl(ApplicationOutputLineWriter lineWriter) {
         this.lineWriter = lineWriter;
     }
 

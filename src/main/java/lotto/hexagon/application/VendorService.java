@@ -24,9 +24,10 @@ public class VendorService {
 
     public Bill purchase(Money money) {
         Divided divided = money.divideBy(PRICE);
-        long quantity = divided.quotient();
-
         assertEmptyRemainder(divided);
+
+        long quantity = divided.quotient();
+        assertPositiveQuantity(quantity);
 
         Lottos lottos = buyUpTo(quantity);
         return new Bill(money, lottos);
@@ -40,20 +41,18 @@ public class VendorService {
         }
     }
 
-    private Lottos buyUpTo(long quantity) {
-        assertPositiveQuantity(quantity);
+    private void assertPositiveQuantity(long quantity) {
+        if (quantity < 1) {
+            throw new IllegalArgumentException(ERROR_NO_QUANTITY);
+        }
+    }
 
+    private Lottos buyUpTo(long quantity) {
         List<Lotto> bought = LongStream.range(0, quantity)
                 .mapToObj(n -> this.issue())
                 .toList();
 
         return new Lottos(bought);
-    }
-
-    private void assertPositiveQuantity(long quantity) {
-        if (quantity < 1) {
-            throw new IllegalArgumentException(ERROR_NO_QUANTITY);
-        }
     }
 
     private Lotto issue() {

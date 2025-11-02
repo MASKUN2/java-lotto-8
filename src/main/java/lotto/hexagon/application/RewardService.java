@@ -10,11 +10,11 @@ import lotto.hexagon.domain.Prize;
 public class RewardService {
 
     public Award determine(Drawn drawn, Lottos lottos) {
-        List<Prize> prizes = getEvaluatedPrizes(drawn, lottos);
+        List<Prize> prizes = getEvaluated(drawn, lottos);
         return getAward(prizes);
     }
 
-    private List<Prize> getEvaluatedPrizes(Drawn drawn, Lottos lottos) {
+    private List<Prize> getEvaluated(Drawn drawn, Lottos lottos) {
         return lottos.stream()
                 .map(lotto -> lotto.evaluate(drawn))
                 .flatMap(Optional::stream)
