@@ -1,9 +1,9 @@
 package lotto.hexagon.domain;
 
-import static lotto.helper.MockRandomGenerator.lottoOf;
 import static lotto.helper.MockRandomGenerator.numbersOf;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Optional;
 import lotto.helper.MockRandomGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,13 +18,14 @@ class LottoTest {
     }
 
     @Test
-    void check() {
+    @DisplayName("로또 당첨확인")
+    void evaluate() {
         Drawn drawn = new Drawn(numbersOf(1, 2, 3, 4, 5, 6), new Number(7));
-        Lotto lotto = lottoOf(1, 2, 3, 4, 5, 7);
+        Lotto lotto = MockRandomGenerator.lottoOf(1, 2, 3, 4, 5, 7);
 
-        Match match = lotto.check(drawn);
+        Optional<Prize> prize = lotto.evaluate(drawn);
 
-        assertThat(match.luckyCount()).isEqualTo(5);
-        assertThat(match.bonusMatch()).isTrue();
+        assertThat(prize).isNotEmpty();
+        assertThat(prize.get()).isEqualTo(Prize.RANK_2);
     }
 }

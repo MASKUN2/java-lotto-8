@@ -68,10 +68,4 @@ public class Numbers implements Iterable<Number> {
     public boolean has(Number target) {
         return set.contains(target);
     }
-
-    public int getMatchCount(Numbers targets) {
-        return (int) set.stream()
-                .filter(targets::has)
-                .count();
-    }
 }

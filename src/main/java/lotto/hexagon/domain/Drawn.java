@@ -12,4 +12,13 @@ public record Drawn(Numbers lucky, Number bonus) {
             throw new IllegalArgumentException(ERROR_UNIQUE);
         }
     }
+
+    public Match match(Numbers numbers) {
+        int luckyCount = (int) numbers.stream()
+                .filter(lucky::has)
+                .count();
+        boolean bonusMatch = numbers.has(bonus);
+
+        return Match.of(luckyCount, bonusMatch);
+    }
 }

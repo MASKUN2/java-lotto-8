@@ -1,5 +1,7 @@
 package lotto.hexagon.domain;
 
+import static lotto.helper.MockRandomGenerator.numbersOf;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 import lotto.helper.MockRandomGenerator;
@@ -17,6 +19,17 @@ class DrawnTest {
 
         assertThatIllegalArgumentException().isThrownBy(() -> new Drawn(numbers, number))
                 .withMessage(Drawn.ERROR_UNIQUE);
+    }
+
+    @Test
+    void match() {
+        Drawn drawn = new Drawn(numbersOf(1, 2, 3, 4, 5, 6), new Number(7));
+        Numbers numbers = MockRandomGenerator.numbersOf(1, 2, 3, 4, 5, 7);
+
+        Match match = drawn.match(numbers);
+
+        assertThat(match.luckyCount()).isEqualTo(5);
+        assertThat(match.bonusMatch()).isTrue();
     }
 
 }

@@ -16,17 +16,7 @@ public class Lotto {
     }
 
     public Optional<Prize> evaluate(Drawn drawn) {
-        Match match = check(drawn);
+        Match match = drawn.match(numbers);
         return Prize.findBy(match);
-    }
-
-    public Match check(Drawn drawn) {
-        Numbers lucky = drawn.lucky();
-        Number bonus = drawn.bonus();
-
-        int luckyCount = lucky.getMatchCount(numbers);
-        boolean bonusMatch = numbers.has(bonus);
-
-        return Match.of(luckyCount, bonusMatch);
     }
 }
