@@ -1,5 +1,6 @@
 package lotto.adaptor.implement;
 
+import java.util.Locale;
 import lotto.hexagon.domain.Award;
 import lotto.hexagon.domain.Condition;
 import lotto.hexagon.domain.Money;
@@ -14,7 +15,7 @@ public class TallyWriter {
     private static final String CONDITION_NUMBER_ONLY_FORMAT = "%d개 일치";
     private static final String CONDITION_FORMAT_WITH_BONUS = "%d개 일치, 보너스 볼 일치";
 
-    private static final String RETURN_FORMAT = "총 수익률은 %.1f%%입니다.";
+    private static final String RETURN_FORMAT = "총 수익률은 %,.1f%%입니다.";
 
     private final ApplicationOutputLineWriter writer;
 
@@ -52,7 +53,7 @@ public class TallyWriter {
         Money money = prize.money;
         int count = prizeTally.count();
 
-        return String.format(PRIZE_FORMAT, condition, money.value(), count);
+        return String.format(Locale.US, PRIZE_FORMAT, condition, money.value(), count);
     }
 
     private String formatCondition(Prize prize) {
@@ -68,7 +69,7 @@ public class TallyWriter {
     private void writeReturnSection(Money paid, Award award) {
         Money total = award.total();
         double percentage = (double) total.value() / paid.value() * 100;
-        String formattedReturn = String.format(RETURN_FORMAT, percentage);
+        String formattedReturn = String.format(Locale.US, RETURN_FORMAT, percentage);
 
         writer.writeLine(formattedReturn);
     }

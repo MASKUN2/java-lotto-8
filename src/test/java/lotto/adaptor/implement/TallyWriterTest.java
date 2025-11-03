@@ -1,6 +1,6 @@
 package lotto.adaptor.implement;
 
-import static lotto.hexagon.domain.Prize.RANK_5;
+import static lotto.hexagon.domain.Prize.RANK_2;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import lotto.helper.MockLineWriter;
@@ -17,21 +17,21 @@ class TallyWriterTest {
     @DisplayName("상금이 있는 상태를 출력")
     void write() {
         Award award = Award.initiate();
-        award = award.add(RANK_5);
+        award = award.add(RANK_2);
 
-        writer.write(Money.of(9000), award);
+        writer.write(Money.of(1000), award);
 
         String output = lineWriter.output();
         String expected = """
                 
                 당첨 통계
                 ---
-                3개 일치 (5,000원) - 1개
+                3개 일치 (5,000원) - 0개
                 4개 일치 (50,000원) - 0개
                 5개 일치 (1,500,000원) - 0개
-                5개 일치, 보너스 볼 일치 (30,000,000원) - 0개
+                5개 일치, 보너스 볼 일치 (30,000,000원) - 1개
                 6개 일치 (2,000,000,000원) - 0개
-                총 수익률은 55.6%입니다.
+                총 수익률은 3,000,000.0%입니다.
                 """;
 
         assertThat(output).isEqualTo(expected);
