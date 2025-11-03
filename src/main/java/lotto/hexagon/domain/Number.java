@@ -6,10 +6,10 @@ public record Number(int value) implements Comparable<Number> {
     static final String ERROR_RANGE = String.format("로또 번호는 %d 부터 %d 사이의 숫자여야 합니다.", MIN_VALUE, MAX_VALUE);
 
     public Number {
-        validate(value);
+        assertInRange(value);
     }
 
-    private void validate(int value) {
+    private void assertInRange(int value) {
         if (value < MIN_VALUE || value > MAX_VALUE) {
             throw new IllegalArgumentException(ERROR_RANGE);
         }
